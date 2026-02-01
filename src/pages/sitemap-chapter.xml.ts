@@ -2,7 +2,7 @@ import { generateSitemapXML } from "@/lib/sitemap";
 import { getAllSeriesSlugs, getSeriesBySlug } from "@/lib/series";
 
 export async function GET() {
-  const base = "https://example.com";
+  const base = "https://zumiscan.netlify.app";
   const urls = [];
 
   for (const slug of getAllSeriesSlugs()) {
