@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAllGenreSlugs, getGenreMeta } from "../../lib/genre";
+
+/**
+ * Ambil semua genre dari data layer
+ * (bukan hardcode)
+ */
+const genreSlugs = getAllGenreSlugs();
+
+const genres = genreSlugs
+  .map((slug) => ({
+    slug,
+    ...getGenreMeta(slug),
+  }))
+  .filter(Boolean);
+---
+
+<BaseLayout
+  title="Daftar Genre Komik"
+  description="Jelajahi semua genre komik: action, romance, fantasy, dan lainnya. Temukan komik favoritmu dengan mudah."
+  canonical="https://example.com/genre"
+>
+  <main class="bg-zinc-950 text-zinc-100">
+    <section class="max-w-7xl mx-auto px-4 py-10">
+
+      <!-- SEO H1 -->
+      <h1 class="text-2xl md:text-3xl font-bold">
+        Daftar Genre Komik
+      </h1>
+
+      <p class="mt-2 max-w-2xl text-zinc-400">
+        Pilih genre komik yang kamu sukai dan temukan berbagai manga,
+        manhwa, dan komik terbaik di setiap kategori.
+      </p>
+
+      <!-- GENRE GRID -->
+      <div
+        class="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"
+      >
+        {genres.map((genre) => (
+          <a
+            href={`/genre/${genre.slug}`}
+            class="group rounded-lg border border-zinc-800
+                   bg-zinc-900 p-4
+                   hover:border-zinc-600
+                   focus:outline-none focus-visible:ring-2
+                   focus-visible:ring-zinc-500"
+          >
+            <h2
+              class="text-base font-semibold
+                     group-hover:text-white"
+            >
+              {genre.name}
+            </h2>
+
+            <p
+              class="mt-1 text-sm text-zinc-400
+                     line-clamp-2"
+            >
+              {genre.description}
+            </p>
+          </a>
+        ))}
+      </div>
+
+    </section>
+  </main>
+</BaseLayout>

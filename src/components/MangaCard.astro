@@ -1,0 +1,8 @@
+---
+const { manga } = Astro.props
+---
+<a href={`/manga/${manga.slug}`} class="block">
+  <img src={manga.cover} class="rounded-lg aspect-[3/4]" />
+  <h3 class="mt-2 text-sm font-semibold">{manga.title}</h3>
+  <p class="text-green-400 text-xs">Ch. {manga.latest}</p>
+</a>

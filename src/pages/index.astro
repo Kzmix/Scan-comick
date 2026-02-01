@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ComicCard from "../components/comic/ComicCard.astro";
+import {
+  getLatestComics,
+  getPopularComics,
+  getAllGenres,
+} from "../lib/comic";
+
+const genres = getAllGenres();
+const latestComics = getLatestComics();
+const popularComics = getPopularComics();
+---
+
+<BaseLayout
+  title="Baca Manga & Manhwa Terbaru"
+  description="Baca komik, manga, dan manhwa terbaru dengan update cepat dan tampilan nyaman."
+>
+  <main class="bg-zinc-950 text-zinc-100">
+
+<!-- GENRE -->
+<a
+  href="/genre"
+  class="inline-block mt-4 text-sm text-zinc-400
+         hover:text-white underline underline-offset-4"
+>
+  Jelajahi semua genre →
+</a>
+
+    <!-- LATEST UPDATE -->
+    <section class="max-w-7xl mx-auto px-4 py-8">
+      <header class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold">Update Terbaru</h2>
+        <a href="/latest" class="text-sm text-zinc-400 hover:text-white">
+          Lihat semua →
+        </a>
+      </header>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+        {latestComics.map((comic) => (
+          <ComicCard comic={comic} />
+        ))}
+      </div>
+    </section>
+
+    <!-- POPULAR -->
+    <section class="max-w-7xl mx-auto px-4 py-8">
+      <h2 class="text-xl font-semibold mb-4">Komik Populer</h2>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+        {popularComics.map((comic) => (
+          <ComicCard comic={comic} />
+        ))}
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

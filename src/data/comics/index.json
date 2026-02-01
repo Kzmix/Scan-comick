@@ -1,0 +1,14 @@
+[
+  {
+    "slug": "solo-leveling",
+    "title": "Solo Leveling",
+    "cover": "https://cdn.site/covers/solo-leveling.webp",
+    "genres": ["action", "fantasy"]
+  },
+  {
+    "slug": "one-piece",
+    "title": "One Piece",
+    "cover": "https://cdn.site/covers/one-piece.webp",
+    "genres": ["action", "adventure"]
+  }
+]

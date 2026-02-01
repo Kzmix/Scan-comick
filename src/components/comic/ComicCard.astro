@@ -1,0 +1,64 @@
+---
+/**
+ * ComicCard
+ * - SEO-first
+ * - Mobile-first
+ * - Zero client-side JS
+ */
+
+export interface Comic {
+  slug: string;
+  title: string;
+  cover: string;
+  badge?: "NEW" | "HOT";
+}
+
+const { comic } = Astro.props as { comic: Comic };
+const comicUrl = `/series/${comic.slug}`;
+---
+
+<article class="group">
+  <a
+    href={comicUrl}
+    class="block focus:outline-none focus-visible:ring-2
+           focus-visible:ring-zinc-500 rounded-lg"
+    aria-label={`Baca komik ${comic.title}`}
+  >
+    <!-- COVER -->
+    <figure
+      class="relative aspect-[3/4] overflow-hidden rounded-lg
+             bg-zinc-900"
+    >
+      <img
+        src={comic.cover}
+        alt={`Cover komik ${comic.title}`}
+        loading="lazy"
+        decoding="async"
+        width="300"
+        height="400"
+        class="h-full w-full object-cover
+               transition-transform duration-200
+               group-hover:scale-105"
+      />
+
+      <!-- BADGE -->
+      {comic.badge && (
+        <span
+          class="absolute top-2 left-2 rounded-md px-2 py-0.5
+                 text-xs font-semibold
+                 bg-red-600 text-white"
+        >
+          {comic.badge}
+        </span>
+      )}
+    </figure>
+
+    <!-- TITLE -->
+    <h3
+      class="mt-2 text-sm font-medium leading-snug
+             text-zinc-100 line-clamp-2"
+    >
+      {comic.title}
+    </h3>
+  </a>
+</article>

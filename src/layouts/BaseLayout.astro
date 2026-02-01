@@ -1,0 +1,64 @@
+---
+import Seo from "../components/common/Seo.astro";
+import "../styles/global.css";
+
+/**
+ * Global defaults (BISA dipindah ke env / config nanti)
+ */
+const site = {
+  name: "Baca Komik Online",
+  description:
+    "Baca komik, manga, dan manhwa terbaru dengan update cepat dan tampilan nyaman.",
+  url: "https://example.com",
+  locale: "id_ID",
+};
+---
+
+<!DOCTYPE html>
+<html lang="id" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- GLOBAL SEO -->
+    <Seo
+      site={site}
+      title={Astro.props.title}
+      description={Astro.props.description}
+      canonical={Astro.props.canonical}
+      image={Astro.props.image}
+      type={Astro.props.type}
+    />
+
+    <!-- THEME -->
+    <meta name="color-scheme" content="dark" />
+  </head>
+
+  <body class="bg-zinc-950 text-zinc-100 antialiased">
+    <!-- HEADER -->
+    <header class="border-b border-zinc-800">
+      <div class="max-w-7xl mx-auto px-4 h-14 flex items-center">
+        <a
+          href="/"
+          class="text-lg font-semibold tracking-tight"
+        >
+          BacaKomik
+        </a>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main id="content">
+      <slot />
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-zinc-800 mt-12">
+      <div
+        class="max-w-7xl mx-auto px-4 py-6 text-sm text-zinc-400"
+      >
+        © {new Date().getFullYear()} BacaKomik. All rights reserved.
+      </div>
+    </footer>
+  </body>
+</html>

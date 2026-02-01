@@ -1,0 +1,12 @@
+[
+  {
+    "slug": "one-piece",
+    "title": "One Piece",
+    "cover": "https://cdn.site/covers/one-piece.webp"
+  },
+  {
+    "slug": "naruto",
+    "title": "Naruto",
+    "cover": "https://cdn.site/covers/naruto.webp"
+  }
+]

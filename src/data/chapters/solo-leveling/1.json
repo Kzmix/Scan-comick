@@ -1,0 +1,16 @@
+{
+  "series": "solo-leveling",
+  "number": 1,
+  "images": [
+    {
+      "src": "https://cdn.site/solo-leveling/1/01.webp",
+      "width": 800,
+      "height": 1200
+    },
+    {
+      "src": "https://cdn.site/solo-leveling/1/02.webp",
+      "width": 800,
+      "height": 1200
+    }
+  ]
+}

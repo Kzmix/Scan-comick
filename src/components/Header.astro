@@ -1,0 +1,14 @@
+---
+import SearchBar from './SearchBar.vue'
+---
+
+<header class="sticky top-0 z-50 bg-black/80 backdrop-blur">
+  <div class="flex items-center justify-between px-4 py-3">
+    <h1 class="text-green-500 font-bold text-lg">MANGAREAD</h1>
+
+    <div class="flex gap-4 items-center">
+      <SearchBar client:load />
+      <button class="text-xl">☰</button>
+    </div>
+  </div>
+</header>

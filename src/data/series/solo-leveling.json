@@ -1,0 +1,15 @@
+{
+  "slug": "solo-leveling",
+  "title": "Solo Leveling",
+  "altTitle": "나 혼자만 레벨업",
+  "description": "Di dunia di mana hunter bertarung melawan monster, Sung Jin-Woo adalah hunter terlemah. Namun segalanya berubah setelah dungeon ganda misterius.",
+  "author": "Chugong",
+  "status": "Completed",
+  "genres": ["action", "fantasy"],
+  "cover": "https://cdn.site/covers/solo-leveling.webp",
+  "chapters": [
+    { "number": 1, "title": "I’m Used to It", "publishedAt": "2018-03-01" },
+    { "number": 2, "title": "Double Dungeon", "publishedAt": "2018-03-08" }
+  ],
+  "updatedAt": "2024-12-20"
+}
