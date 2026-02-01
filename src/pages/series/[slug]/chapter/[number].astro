@@ -38,7 +38,6 @@ const chapterNav = getChapterByNumber(series, chapterNumber);
 if (!chapterNav) throw new Error("Chapter not found");
 
 const chapterImages = getChapterImages(slug, chapterNumber);
-if (!chapterImages) throw new Error("Chapter images not found");
 
 const canonical = `https://example.com/series/${slug}/chapter/${chapterNumber}`;
 ---
@@ -69,24 +68,30 @@ const canonical = `https://example.com/series/${slug}/chapter/${chapterNumber}`;
     </header>
 
     <!-- READER -->
-    <section class="max-w-3xl mx-auto px-2 sm:px-4">
-      {chapterImages.images.map((img, i) => (
-        <figure
-          class="mb-2 bg-black"
-          style={`aspect-ratio:${img.width}/${img.height}`}
-        >
-          <img
-            src={img.src}
-            alt={`${series.title} Chapter ${chapterNumber} Page ${i + 1}`}
-            width={img.width}
-            height={img.height}
-            loading={i === 0 ? "eager" : "lazy"}
-            decoding="async"
-            class="w-full h-auto object-contain"
-          />
-        </figure>
-      ))}
-    </section>
+   {chapterImages ? (
+  <section class="max-w-3xl mx-auto px-2 sm:px-4">
+    {chapterImages.images.map((img, i) => (
+      <figure
+        class="mb-2 bg-black"
+        style={`aspect-ratio:${img.width}/${img.height}`}
+      >
+        <img
+          src={img.src}
+          alt={`${series.title} Chapter ${chapterNumber} Page ${i + 1}`}
+          width={img.width}
+          height={img.height}
+          loading={i === 0 ? "eager" : "lazy"}
+          decoding="async"
+          class="w-full h-auto object-contain"
+        />
+      </figure>
+    ))}
+  </section>
+) : (
+  <section class="max-w-3xl mx-auto px-4 py-20 text-center text-zinc-400">
+    <p>Chapter ini belum tersedia.</p>
+  </section>
+)}
 
     <!-- NAVIGATION -->
     <nav class="max-w-3xl mx-auto px-4 py-8 flex justify-between text-sm">
