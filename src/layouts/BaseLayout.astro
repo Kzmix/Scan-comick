@@ -37,16 +37,44 @@ const site = {
 
   <body class="bg-zinc-950 text-zinc-100 antialiased">
     <!-- HEADER -->
-    <header class="border-b border-zinc-800">
-      <div class="max-w-7xl mx-auto px-4 h-14 flex items-center">
-        <a
-          href="/"
-          class="text-lg font-semibold tracking-tight"
-        >
-          BacaKomik
-        </a>
-      </div>
-    </header>
+ <header class="border-b border-zinc-800">
+  <div
+    class="max-w-7xl mx-auto px-4 h-14
+           flex items-center justify-between"
+  >
+    <!-- LOGO -->
+    <a
+      href="/"
+      class="text-lg font-semibold tracking-tight"
+    >
+      BacaKomik
+    </a>
+
+    <!-- NAV -->
+    <nav class="flex items-center gap-6 text-sm">
+      <a
+        href="/genre"
+        class="text-zinc-400 hover:text-white transition"
+      >
+        Genre
+      </a>
+
+      <a
+        href="/latest"
+        class="text-zinc-400 hover:text-white transition"
+      >
+        Terbaru
+      </a>
+
+      <a
+        href="/popular"
+        class="text-zinc-400 hover:text-white transition"
+      >
+        Populer
+      </a>
+    </nav>
+  </div>
+</header>
 
     <!-- MAIN CONTENT -->
     <main id="content">

@@ -1,7 +1,7 @@
 import { generateSitemapIndex } from "@/lib/sitemap";
 
 export async function GET() {
-  const base = "https://zumiscan.netlify.app";
+  const base = "https://kazuscan.my.id";
 
   const body = generateSitemapIndex([
     { loc: `${base}/sitemap-core.xml` },

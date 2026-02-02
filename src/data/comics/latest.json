@@ -1,20 +1,8 @@
 [
-  {
-    "slug": "solo-leveling",
-    "title": "Solo Leveling",
-    "cover": "https://cdn.site/covers/solo-leveling.webp",
-    "badge": "HOT"
-  },
-  {
-    "slug": "the-beginning-after-the-end",
-    "title": "The Beginning After the End",
-    "cover": "https://cdn.site/covers/tbate.webp",
-    "badge": "NEW"
-  },
     {
-    "slug": "Toki-Doki",
+    "slug": "toki-doki",
     "title": "Toki Doki",
-    "cover": "https://cdn.site/covers/tbate.webp",
+    "cover": "https://github.com/Kzmix/Comick/raw/refs/heads/main/Tak%20berjudul1.png",
     "badge": "NEW"
   }
 ]
