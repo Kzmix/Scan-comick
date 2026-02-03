@@ -6,7 +6,7 @@
   "author": ["komi", "noshi"],
   "status": "Completed",
   "genres": ["drama", "romance"],
-  "cover": "https://raw.githubusercontent.com/Kzmix/Comick/main/Tak%20berjudul1.png",
+  "cover": "https://github.com/Kzmix/Comick/raw/refs/heads/main/Tak%20berjudul1.png",
   "chapters": [
     { "number": 1, "title": "I’m Used to It", "publishedAt": "2016-10-20" }
   ],

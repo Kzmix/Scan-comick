@@ -1,0 +1,18 @@
+---
+import { getAllSeriesSlugs, getSeriesBySlug } from "@/lib/series";
+const slugs = getAllSeriesSlugs();
+---
+
+<div id="series-registry" hidden>
+  {slugs.map((slug) => {
+    const s = getSeriesBySlug(slug);
+    if (!s) return null;
+    return (
+      <div
+        data-series-slug={s.slug}
+        data-series-title={s.title}
+        data-series-cover={s.cover}
+      />
+    );
+  })}
+</div>

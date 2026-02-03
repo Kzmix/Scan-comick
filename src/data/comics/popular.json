@@ -2,6 +2,8 @@
   {
     "slug": "toki-doki",
     "title": "Toki Doki",
-    "cover": "https://github.com/Kzmix/Comick/raw/refs/heads/main/Tak%20berjudul1.png"
+    "cover": "https://raw.githubusercontent.com/Kzmix/Comick/refs/heads/main/Tak%20berjudul1.png",
+    "genres": ["romance", "drama"],
+    "rating": 4.7
   }
 ]

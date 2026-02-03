@@ -1,0 +1,139 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Bookmark | KazuScan"
+  description="Komik yang kamu simpan untuk dilanjutkan nanti."
+  canonical="https://kazuscan.com/bookmark"
+>
+  <main class="bg-zinc-950 text-zinc-100">
+    <section class="max-w-3xl mx-auto px-4 py-10">
+
+      <!-- SSR HEADER -->
+      <h1 class="text-2xl font-bold">Bookmark</h1>
+      <p class="mt-2 text-sm text-zinc-400">
+        Komik yang kamu simpan untuk dilanjutkan nanti.
+      </p>
+
+      <!-- CLIENT CONTAINER -->
+      <div id="bookmark-list" class="mt-6 space-y-4"></div>
+
+      <!-- SSR EMPTY STATE (fallback) -->
+      <p
+        id="bookmark-empty"
+        class="mt-6 text-sm text-zinc-500"
+      >
+        Belum ada komik yang dibookmark.
+      </p>
+
+    </section>
+  </main>
+
+  <!-- CLIENT-ONLY SCRIPT -->
+  <script type="module">
+    (function () {
+      const STORAGE_KEY = "bookmark:v1";
+
+      function safeReadBookmarks() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return null;
+          const data = JSON.parse(raw);
+          return data && typeof data === "object" ? data : null;
+        } catch {
+          try { localStorage.removeItem(STORAGE_KEY); } catch {}
+          return null;
+        }
+      }
+
+      function buildRegistryMap() {
+        const map = {};
+        const root = document.getElementById("series-registry");
+        if (!root) return map;
+
+        const nodes = root.querySelectorAll("[data-series-slug]");
+        for (const el of nodes) {
+          const slug = el.dataset.seriesSlug;
+          if (!slug) continue;
+          map[slug] = {
+            title: el.dataset.seriesTitle || null,
+            cover: el.dataset.seriesCover || null,
+          };
+        }
+        return map;
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById("bookmark-list");
+        const empty = document.getElementById("bookmark-empty");
+        if (!container || !empty) return;
+
+        const bookmarks = safeReadBookmarks();
+        if (!bookmarks || Object.keys(bookmarks).length === 0) return;
+
+        const registry = buildRegistryMap();
+
+        const items = Object.values(bookmarks)
+          .filter(Boolean)
+          .sort((a, b) => b.updated_at - a.updated_at);
+
+        if (items.length === 0) return;
+
+        empty.style.display = "none";
+
+        const frag = document.createDocumentFragment();
+
+        for (const item of items) {
+          const slug = item.series_slug;
+          const meta = registry[slug] || {};
+
+          const title = meta.title || slug;
+          const cover = meta.cover;
+
+          const link = `/series/${slug}/chapter/${item.last_chapter}`;
+
+          const card = document.createElement("article");
+          card.className =
+            "flex gap-4 rounded-lg border border-zinc-800 bg-zinc-900 p-3";
+
+          card.innerHTML = `
+            <div class="w-16 shrink-0">
+              ${
+                cover
+                  ? `<img
+                       src="${cover}"
+                       alt="${title}"
+                       loading="lazy"
+                       class="w-full h-auto rounded"
+                     />`
+                  : `<div class="w-full aspect-[2/3] bg-zinc-800 rounded"></div>`
+              }
+            </div>
+
+            <div class="flex-1">
+              <h2 class="text-sm font-medium">
+                ${title}
+              </h2>
+              <p class="mt-1 text-xs text-zinc-400">
+                Chapter terakhir: ${item.last_chapter}
+              </p>
+              <a
+                href="${link}"
+                class="inline-block mt-2 text-xs font-semibold
+                       rounded-md bg-zinc-100 px-3 py-1.5
+                       text-zinc-900 hover:bg-white"
+              >
+                Lanjutkan
+              </a>
+            </div>
+          `;
+
+          frag.appendChild(card);
+        }
+
+        container.appendChild(frag);
+      });
+    })();
+  </script>
+</BaseLayout>

@@ -11,6 +11,8 @@ export interface Comic {
   title: string;
   cover: string;
   badge?: "NEW" | "HOT";
+  rating?: number;
+  genres?: string[];
 }
 
 const { comic } = Astro.props as { comic: Comic };

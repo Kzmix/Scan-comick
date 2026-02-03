@@ -1,93 +1,121 @@
 ---
-import Seo from "../components/common/Seo.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 import "../styles/global.css";
-
-/**
- * Global defaults (BISA dipindah ke env / config nanti)
- */
-const site = {
-  name: "Baca Komik Online",
-  description:
-    "Baca komik, manga, dan manhwa terbaru dengan update cepat dan tampilan nyaman.",
-  url: "https://example.com",
-  locale: "id_ID",
-};
+import { popularComics, latestUpdates } from "@/data/homepage";
+import SeriesRegistry from "@/components/SeriesRegistry.astro";
+const {
+  title = "KazuScan",
+  description = "Baca komik, manga, dan manhwa terbaru",
+  canonical,
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-   <meta name="msvalidate.01" content="BFFE8F888C316D74B107365AEA9A2A11" />
-    <!-- GLOBAL SEO -->
-    <Seo
-      site={site}
-      title={Astro.props.title}
-      description={Astro.props.description}
-      canonical={Astro.props.canonical}
-      image={Astro.props.image}
-      type={Astro.props.type}
-    />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
 
-    <!-- THEME -->
-    <meta name="color-scheme" content="dark" />
+    <!-- SEO head lain TIDAK diubah -->
   </head>
 
   <body class="bg-zinc-950 text-zinc-100 antialiased">
-    <!-- HEADER -->
- <header class="border-b border-zinc-800">
-  <div
-    class="max-w-7xl mx-auto px-4 h-14
-           flex items-center justify-between"
-  >
-    <!-- LOGO -->
-    <a
-      href="/"
-      class="text-lg font-semibold tracking-tight"
-    >
-      BacaKomik
-    </a>
 
-    <!-- NAV -->
-    <nav class="flex items-center gap-6 text-sm">
-      <a
-        href="/genre"
-        class="text-zinc-400 hover:text-white transition"
-      >
-        Genre
-      </a>
+    <!-- ===== HEADER ===== -->
+    <header class="sticky top-0 z-30 bg-zinc-950 border-b border-zinc-900">
+      <div class="max-w-7xl mx-auto px-4 h-12 flex items-center">
+        <a
+          href="/"
+          class="text-lg font-semibold tracking-wide"
+        >
+          KazuScan
+        </a>
+      </div>
+    </header>
 
-      <a
-        href="/latest"
-        class="text-zinc-400 hover:text-white transition"
-      >
-        Terbaru
-      </a>
-
-      <a
-        href="/popular"
-        class="text-zinc-400 hover:text-white transition"
-      >
-        Populer
-      </a>
-    </nav>
-  </div>
-</header>
-
-    <!-- MAIN CONTENT -->
-    <main id="content">
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="pb-20">
       <slot />
     </main>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-zinc-800 mt-12">
-      <div
-        class="max-w-7xl mx-auto px-4 py-6 text-sm text-zinc-400"
-      >
-        © {new Date().getFullYear()} BacaKomik. All rights reserved.
-      </div>
-    </footer>
+    <!-- ===== BOTTOM NAVIGATION ===== -->
+    <nav
+      class="fixed bottom-0 inset-x-0 z-40
+             bg-zinc-950 border-t border-zinc-900"
+      aria-label="Bottom Navigation"
+    >
+<div
+  class="max-w-md mx-auto
+         h-16 flex justify-around items-center"
+>
+
+  <!-- HOME -->
+  <a
+    href="/"
+    class="flex flex-col items-center justify-center
+           text-zinc-400 hover:text-white
+           text-xs"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class="w-6 h-6 mb-0.5"
+      aria-hidden="true"
+    >
+      <path d="M3 9.75L12 3l9 6.75V21a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V9.75z"/>
+    </svg>
+    Home
+  </a>
+
+  <!-- GENRE -->
+  <a
+    href="/genre"
+    class="flex flex-col items-center justify-center
+           text-zinc-400 hover:text-white
+           text-xs"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class="w-6 h-6 mb-0.5"
+      aria-hidden="true"
+    >
+      <path d="M3 5a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm10 0a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2h-3a2 2 0 01-2-2V5zM3 15a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3zm10 0a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2h-3a2 2 0 01-2-2v-3z"/>
+    </svg>
+    Genre
+  </a>
+
+  <!-- BOOKMARK -->
+  <a
+    href="/bookmark"
+    class="flex flex-col items-center justify-center
+           text-zinc-400 hover:text-white
+           text-xs"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class="w-6 h-6 mb-0.5"
+      aria-hidden="true"
+    >
+      <path d="M6 2a2 2 0 00-2 2v18l8-4 8 4V4a2 2 0 00-2-2H6z"/>
+    </svg>
+    Bookmark
+  </a>
+
+</div>
+    </nav>
+
+<SeriesRegistry />
+
+<script type="module" src="/js/bookmark.client.js"></script>
+
   </body>
 </html>

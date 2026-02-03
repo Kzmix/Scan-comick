@@ -5,7 +5,7 @@ type SitemapItem = {
 
 export function generateSitemapXML(urls: SitemapItem[]) {
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
   .map(
     (u) => `<url>
@@ -19,7 +19,7 @@ ${urls
 
 export function generateSitemapIndex(items: { loc: string }[]) {
   return `<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${items
   .map(
     (s) => `<sitemap>

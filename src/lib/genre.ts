@@ -1,6 +1,8 @@
 import type { ComicCardData } from "./types";
 
-/* load data SAFELY via Vite */
+/* =========
+   LOAD DATA (AMAN)
+   ========= */
 const genreModules = import.meta.glob("../data/genres.json", {
   eager: true,
 });
@@ -9,18 +11,25 @@ const comicModules = import.meta.glob("../data/comics/index.json", {
   eager: true,
 });
 
-const genres = Object.values(genreModules)[0] as Record<
+/* ambil isi JSON dari .default */
+const genres = (Object.values(genreModules)[0] as any).default as Record<
   string,
   { name: string; description: string }
 >;
 
-const comics = Object.values(comicModules)[0] as ComicCardData[];
+const comics = (Object.values(comicModules)[0] as any).default as ComicCardData[];
 
+/* =========
+   TYPES
+   ========= */
 export type GenreMeta = {
   name: string;
   description: string;
 };
 
+/* =========
+   FUNCTIONS
+   ========= */
 export function getAllGenreSlugs(): string[] {
   return Object.keys(genres);
 }

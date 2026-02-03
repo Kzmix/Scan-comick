@@ -1,0 +1,52 @@
+---
+const { items = [] } = Astro.props;
+---
+
+<section class="mt-6">
+  <h2 class="px-4 text-lg font-semibold">
+    Popular
+  </h2>
+
+<div
+  class="mt-3 flex overflow-x-auto
+         snap-x snap-mandatory
+         [-webkit-overflow-scrolling:touch]"
+>
+    {items.map((comic) => (
+      <a
+        href={`/series/${comic.slug}`}
+        class="relative min-w-full max-w-full
+       snap-center overflow-hidden rounded-xl
+       bg-zinc-900"
+      >
+        <!-- COVER -->
+        <img
+          src={comic.cover}
+          alt={comic.title}
+          loading="lazy"
+          class="w-full object-cover
+         max-h-[70vh]"
+        />
+
+        <!-- GRADIENT OVERLAY -->
+        <div
+          class="pointer-events-none absolute inset-0
+                 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
+        ></div>
+
+        <!-- TEXT OVERLAY -->
+        <div class="absolute bottom-0 p-4">
+          <h3 class="text-sm font-semibold leading-tight">
+            {comic.title}
+          </h3>
+
+          <div class="mt-1 flex items-center gap-2 text-xs text-zinc-300">
+            <span>★ {comic.rating}</span>
+            <span>•</span>
+            <span>{comic.genres[0]}</span>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

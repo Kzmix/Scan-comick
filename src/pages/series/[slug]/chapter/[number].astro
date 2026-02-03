@@ -69,7 +69,10 @@ const canonical = `https://example.com/series/${slug}/chapter/${chapterNumber}`;
 
     <!-- READER -->
    {chapterImages ? (
-<section class="max-w-3xl mx-auto px-0 sm:px-0">
+<section
+  id="reader"
+  class="max-w-3xl mx-auto px-0 sm:px-0"
+>
   {chapterImages.images.map((img, i) => (
     <img
       src={img.src}
@@ -78,7 +81,8 @@ const canonical = `https://example.com/series/${slug}/chapter/${chapterNumber}`;
       height={img.height}
       loading={i === 0 ? "eager" : "lazy"}
       decoding="async"
-      class="block w-full h-auto"
+      draggable="false"
+      class="block w-full h-auto mb-1"
     />
   ))}
 </section>
@@ -110,4 +114,83 @@ const canonical = `https://example.com/series/${slug}/chapter/${chapterNumber}`;
     </nav>
 
   </main>
+  <!-- FLOATING SCROLL TO TOP -->
+<button
+  id="scroll-top"
+  aria-label="Scroll to top"
+  class="fixed bottom-24 right-4 z-40
+         hidden
+         rounded-full bg-zinc-800/80
+         p-3 text-white
+         backdrop-blur
+         shadow-lg
+         transition hover:bg-zinc-700"
+>
+  ↑
+</button>
+
+<script>
+  (function () {
+    const reader = document.getElementById("reader");
+    const nav = document.querySelector("nav[aria-label='Bottom Navigation']");
+    const scrollBtn = document.getElementById("scroll-top");
+
+    if (!reader || !nav) return;
+
+    let uiVisible = true;
+    let touchStartY = 0;
+    let touchMoved = false;
+
+    // === TAP DETECTION (NO FALSE TRIGGER ON SCROLL) ===
+    reader.addEventListener("touchstart", (e) => {
+      touchStartY = e.touches[0].clientY;
+      touchMoved = false;
+    });
+
+    reader.addEventListener("touchmove", (e) => {
+      const diff = Math.abs(e.touches[0].clientY - touchStartY);
+      if (diff > 10) touchMoved = true; // dianggap scroll
+    });
+
+    reader.addEventListener("touchend", () => {
+      if (touchMoved) return;
+
+      uiVisible = !uiVisible;
+
+      // TOGGLE BOTTOM NAV
+      nav.style.transform = uiVisible
+        ? "translateY(0)"
+        : "translateY(100%)";
+
+      // TOGGLE SCROLL BUTTON
+      if (scrollBtn) {
+        scrollBtn.style.opacity = uiVisible ? "1" : "0";
+        scrollBtn.style.pointerEvents = uiVisible ? "auto" : "none";
+      }
+    });
+
+    // === SCROLL TO TOP BUTTON CLICK ===
+    scrollBtn?.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+
+    // === SHOW SCROLL BTN BASED ON SCROLL (ONLY IF UI VISIBLE) ===
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!scrollBtn || !uiVisible) return;
+
+        if (window.scrollY > 600) {
+          scrollBtn.classList.remove("hidden");
+        } else {
+          scrollBtn.classList.add("hidden");
+        }
+      },
+      { passive: true }
+    );
+  })();
+</script>
 </BaseLayout>

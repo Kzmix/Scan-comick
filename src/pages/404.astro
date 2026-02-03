@@ -1,0 +1,53 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Halaman Tidak Ditemukan"
+  description="Halaman yang kamu cari tidak tersedia atau sudah dipindahkan."
+>
+  <main class="bg-zinc-950 text-zinc-100 min-h-[70vh] flex items-center">
+    <section class="max-w-xl mx-auto px-4 text-center">
+
+      <!-- ERROR CODE -->
+      <p class="text-sm text-zinc-500 tracking-widest">
+        ERROR 404
+      </p>
+
+      <!-- HEADLINE -->
+      <h1 class="mt-2 text-2xl md:text-3xl font-bold">
+        Halaman Tidak Ditemukan
+      </h1>
+
+      <!-- COPY -->
+      <p class="mt-4 text-zinc-400 leading-relaxed">
+        Sepertinya halaman yang kamu cari sudah dipindahkan,
+        dihapus, atau URL-nya salah ketik.
+      </p>
+
+      <!-- CTA -->
+      <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+        <a
+          href="/"
+          class="inline-flex items-center justify-center
+                 rounded-lg bg-zinc-100 px-5 py-2.5
+                 text-sm font-medium text-zinc-900
+                 hover:bg-white"
+        >
+          Kembali ke Beranda
+        </a>
+
+        <a
+          href="/genre"
+          class="inline-flex items-center justify-center
+                 rounded-lg border border-zinc-700
+                 px-5 py-2.5 text-sm text-zinc-300
+                 hover:border-zinc-500 hover:text-white"
+        >
+          Jelajahi Genre
+        </a>
+      </div>
+
+    </section>
+  </main>
+</BaseLayout>
